@@ -1,0 +1,27 @@
+{% extends 'master_template.html' %}
+
+{% block content %}
+{% endblock content %}
+{% block service %}
+
+<div class="row g-5" align="left">
+  <center>
+    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+    <h1 class="mb-4">Enter your New password!!!</h1>
+    <font color="blue">{{output}}</font>
+<form method ="POST" action="/login/">
+  {% csrf_token %}
+    
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" placeholder="Enter Your Email" name="email" value="{{cunm}}">
+  </div>
+  <br><br>
+  <button type="submit" class="btn btn-danger">Forget Password</button>
+  
+</form>
+</div>
+</div>
+</center>
+
+{% endblock service %}

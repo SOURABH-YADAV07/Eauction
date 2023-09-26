@@ -1,0 +1,108 @@
+{% extends 'master_template.html' %}
+
+{% block content %}
+{% endblock content %}
+{% block service %}
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
+
+<script>
+
+function checkEmail(emailid)
+{
+  var xhttp=new XMLHttpRequest();
+ xhttp.open("GET","http://127.0.0.1:8000/checkEmailAJAX/?email="+emailid,true);
+ xhttp.send();
+
+ xhttp.onreadystatechange=function()
+ {
+    if(xhttp.readyState==4 && xhttp.status==200)
+    {
+      var msg;
+      var ref=document.getElementById("response");
+      if(xhttp.responseText==0)
+      {
+        ref.innerHTML="Emailid Availabe";
+        ref.style.color="green";
+      }
+      else
+      {
+        ref.innerHTML="Emailid already exit";
+        ref.style.color="red";
+      }
+    }
+ }
+}
+</script>
+
+<div class="row g-5">
+  <center>
+    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+    <h1 class="mb-4">Register Here!!!</h1>
+    <font color="blue">{{output}}</font>
+<form method ="POST" action="/register/">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" placeholder="Enter your name" class="form-control" name="name" >
+  </div>  
+  <br/>
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" placeholder="Enter your name" class="form-control" name="email" id="email" onkeyup="checkEmail(this.value)">
+    <font id="response"></font>
+  </div>
+  <br/> 
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" placeholder="Enter Password" class="form-control" name="password" >
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="mobile">Mobile:</label>
+    <input type="text" placeholder="Enter Your Mobile No." class="form-control" name="mobile" >
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="address">Address:</label>
+    <textarea rows="5" placeholder="Enter Address" class="form-control" name="address"></textarea>
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="city">Location:</label>
+    <div class="card-body text-left">
+      <select name="country" class="countries" id="countryId">
+          <option value="">Select Country</option>
+      </select>
+      <select name="state" class="states" id="stateId">
+          <option value="">Select State</option>
+      </select>
+      <select name="city" class="cities" id="cityId">
+          <option value="">Select City</option>
+      </select>
+  </div>
+    <!--<label for="city">City:</label>
+    <select class="form-control" name="city" >
+    <option>Select City</option>
+    <option>Indore</option>    
+    <option>Bhopal</option>
+    <option>Ujjain</option>
+    </select>-->
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="gender">Gender:</label>
+    <input type="radio" name="gender" value="male" > Male
+    &nbsp;&nbsp;&nbsp;
+    <input type="radio" name="gender" value="female" > Female
+  </div>
+  <br/>
+
+  <button type="submit" class="btn btn-danger">Submit</button>
+</form>
+    </div>
+</div>
+</center>
+{% endblock service %}
